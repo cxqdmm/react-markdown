@@ -17,7 +17,7 @@ install:
 script:
   - yarn build
 after_script:
-  - cd ./build
+  - cd ./doc
   - git init
   - git config --global user.name "${U_NAME}"
   - git config --global user.email '${U_EMAIL}'
