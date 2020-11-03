@@ -3,7 +3,7 @@ import { find } from 'lodash';
 import { useLocation } from 'react-router';
 import React, { useMemo } from 'react';
 import cls from 'classnames';
-import './index.scss';
+import './index.less';
 import { IRoute } from '../../../router/interface';
 
 const PREFIX = 'Mavigator';

@@ -1,4 +1,4 @@
-@import '../../theme.scss';
+@import '../../theme.less';
 
 .Layout {
   position: relative;
@@ -9,8 +9,8 @@
 
   &-head {
     height: 80px;
-    border-bottom: 1px solid $default-border-color;
-    color: $default-color;
+    border-bottom: 1px solid @default-border-color;
+    color: @default-color;
     display: flex;
     align-items: center;
     &Title {
@@ -19,9 +19,9 @@
       text-align: center;
       width: 300px;
       height: 50px;
-      border-right: 1px solid $default-border-color;
+      border-right: 1px solid @default-border-color;
       &:hover {
-        color: $primary-color;
+        color: @primary-color;
       }
     }
     box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
@@ -36,8 +36,8 @@
       overflow: hidden;
       overflow-y: auto;
       width: 300px;
-      border-right: 1px solid $default-border-color;
-      background-color: $panel-bg-color;
+      border-right: 1px solid @default-border-color;
+      background-color: @panel-bg-color;
     }
 
     &Right {

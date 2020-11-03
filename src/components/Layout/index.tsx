@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
-import './index.scss';
+import './index.less';
 import { IRoute } from '../../router/interface';
 import Mavigator from './Navigator';
 

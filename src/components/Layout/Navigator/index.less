@@ -1,6 +1,6 @@
-@import '../../../theme.scss';
-$prefix: 'Mavigator';
-.#{$prefix} {
+@import '../../../theme.less';
+
+.Mavigator {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -23,12 +23,12 @@ $prefix: 'Mavigator';
     -webkit-box-align: center;
 
     &:hover {
-      background-color: $btn-hover-color;
+      background-color: @btn-hover-color;
     }
 
     &.is-active {
       color: rgb(255, 209, 57);
-      border-color: $default-border-color;
+      border-color: @default-border-color;
     }
   }
 }
