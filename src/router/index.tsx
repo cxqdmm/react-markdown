@@ -10,7 +10,7 @@ const routes: IRoute[] = [
   {
     path: '/',
     layout: Layout,
-    layoutProps: { title: 'react' },
+    layoutProps: { title: 'react 解析' },
     ignoreCache: true,
     children: [
       {
