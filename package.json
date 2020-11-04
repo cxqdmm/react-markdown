@@ -2,6 +2,7 @@
   "name": "react-markdown",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://cxqdmm.github.io/react-markdown/",
   "dependencies": {
     "@babel/core": "7.12.3",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
