@@ -3,6 +3,7 @@ import { Redirect, Route, RouteComponentProps, RouteProps, Switch } from 'react-
 import { map } from 'lodash';
 import { recoverPath } from './util';
 import React from 'react';
+import { homePath } from '.';
 
 type IRouteWithLayoutProps = Omit<RouteProps, 'component' | 'render' | 'children'> & {
   childrenRender: React.ReactNode;
@@ -22,7 +23,7 @@ const RedirectRoute: React.FC<
   if (redirectUrl !== pathname) {
     return <Redirect to={redirectUrl} />;
   }
-  return <Redirect to="/home" />;
+  return <Redirect to={homePath} />;
 });
 
 export const renderRouterWithChildren = (

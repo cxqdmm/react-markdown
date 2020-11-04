@@ -6,20 +6,28 @@ import Layout from '../components/Layout';
 import React from 'react';
 import MdView from '../components/MdView';
 import { IRoute } from './interface';
+
+const WEB_ROOT = process.env.WEB_ROOT || '/';
+
+function getPath(path: string) {
+  return `${WEB_ROOT}${path}`;
+}
+
+export const homePath = getPath('/home');
 const routes: IRoute[] = [
   {
-    path: '/',
+    path: WEB_ROOT,
     layout: Layout,
     layoutProps: { title: 'react 解析' },
     ignoreCache: true,
     children: [
       {
-        path: '/home',
+        path: homePath,
         name: 'home',
         component: () => <MdView md={home} />,
       },
       {
-        path: '/useEffect',
+        path: getPath('/useEffect'),
         name: 'useEffect',
         component: () => <MdView md={useEffect} />,
       },
