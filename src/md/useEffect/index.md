@@ -16,4 +16,4 @@ useEffect 有三个重要的组成，处理函数、依赖、销毁函数（处�
 
 事实上百分之 99%的场景使用 useEffect 和 useLayoutEffect 的效果是一样的, 不同点是，useLayoutEffect 的表现和 componentDidUpdate 一样，会阻塞浏览器的渲染,具体可参考[useEffect](https://codesandbox.io/s/useeffect-vs-uselayouteffect-gtvim),可以发现使用 useEffect 时红色数字 1 会一闪而过，useLayoutEffect 不会出现这种现象。
 
-<img src="/react-markdown/assets/useEffect.png" alt="github" width="1400" style="margin: auto;display: block;">
+<img src="/react-markdown/assets/useEffect.png" alt="github" width="80%" style="margin: auto;display: block;">
