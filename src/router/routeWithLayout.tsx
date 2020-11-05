@@ -21,7 +21,7 @@ const RedirectRoute: React.FC<
   const { pathname } = location || {};
   const redirectUrl = recoverPath(route, routes);
   if (redirectUrl !== pathname) {
-    return <Redirect to={redirectUrl} />;
+    return <Redirect to={redirectUrl || homePath} />;
   }
   return <Redirect to={homePath} />;
 });

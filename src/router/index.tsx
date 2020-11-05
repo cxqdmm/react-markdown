@@ -41,7 +41,7 @@ const RootRouter = () => {
     <BrowserRouter>
       <Switch>
         {renderRouterWithChildren(undefined, routes)}
-        <Redirect to="/home" />
+        <Redirect to={homePath} />
       </Switch>
     </BrowserRouter>
   );
