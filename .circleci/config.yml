@@ -1,13 +1,7 @@
 version: 2
-filters:
-  branches:
-    only: main
 jobs:
   test:
     working_directory: ~/repo
-    branches:
-      only:
-        - main
     docker:
       - image: circleci/node:10.16.0
     steps:
@@ -37,4 +31,7 @@ workflows:
   version: 2
   test-deploy:
     jobs:
-      - test
+      - test:
+        filters:
+          branches:
+            only: main
