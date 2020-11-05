@@ -5,6 +5,9 @@ filters:
 jobs:
   test:
     working_directory: ~/repo
+    branches:
+      only:
+        - main
     docker:
       - image: circleci/node:10.16.0
     steps:
