@@ -15,7 +15,7 @@ const UseEffectView: React.FC<IProps> = React.memo(function useEffectView(props)
     return () => {
       console.log('unmount effect');
     };
-  }, []);
+  }, [count]);
 
   const handleClick = useCallback(() => {
     setCount(count + 1);
