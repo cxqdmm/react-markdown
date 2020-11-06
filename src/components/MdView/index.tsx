@@ -15,7 +15,7 @@ const MdView: React.FC<IProps> = React.memo(function MdView(props) {
   const { className, md, view } = props;
   return (
     <div className={cls(`${PREFIX}`, className)}>
-      {isDevelopment && <div className={`${PREFIX}-body`}>{view}</div>}
+      {isDevelopment && view && <div className={`${PREFIX}-body`}>{view}</div>}
       <div className={`${PREFIX}-md`} dangerouslySetInnerHTML={{ __html: md }}></div>
     </div>
   );

@@ -1,6 +1,8 @@
 import home from '../md/home/index.md';
 import useEffect from '../md/useEffect/index.md';
 import UseEffectView from '../md/useEffect';
+import useContext from '../md/useContext/index.md';
+import UseContextView from '../md/useContext';
 import { Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import { renderRouterWithChildren } from './routeWithLayout';
 import Layout from '../components/Layout';
@@ -31,6 +33,11 @@ const routes: IRoute[] = [
         path: getPath('/useEffect'),
         name: 'useEffect',
         component: () => <MdView md={useEffect} view={<UseEffectView />} />,
+      },
+      {
+        path: getPath('/useContext'),
+        name: 'useContext',
+        component: () => <MdView md={useContext} view={<UseContextView />} />,
       },
     ],
   },
