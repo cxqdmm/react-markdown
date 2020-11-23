@@ -1,0 +1,19 @@
+@import '../../../theme.less';
+.Folder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  &-foldBtn {
+    flex: 0 0 50px;
+    background-color: @panel-bg-color;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+    align-items: center;
+  }
+
+  &-body {
+    padding: 16px 20px;
+    overflow: auto;
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import './index.less';
+import Folder from '../Layout/Folder';
 
 const PREFIX = 'MdView';
 
@@ -15,8 +16,10 @@ const MdView: React.FC<IProps> = React.memo(function MdView(props) {
   const { className, md, view } = props;
   return (
     <div className={cls(`${PREFIX}`, className)}>
-      {isDevelopment && view && <div className={`${PREFIX}-body`}>{view}</div>}
-      <div className={`${PREFIX}-md`} dangerouslySetInnerHTML={{ __html: md }}></div>
+      {isDevelopment && view && <Folder className={`${PREFIX}-body`}>{view}</Folder>}
+      <Folder className={`${PREFIX}-md`}>
+        <div dangerouslySetInnerHTML={{ __html: md }}></div>
+      </Folder>
     </div>
   );
 });

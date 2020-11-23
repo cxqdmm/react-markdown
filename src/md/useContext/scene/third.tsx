@@ -37,7 +37,8 @@ const Third: React.FC = React.memo(function Third(props) {
         </countContext.Provider>
       </Scene>
       <Conclusion>
-        当context其中一个属性变化时，所有接收者是否都会触发re-render 即使没有使用该属性
+        当context其中一个属性变化时，所有接收者是否都会触发re-render 即使没有使用该属性。
+        <div>有没有破解之法？</div>
       </Conclusion>
     </>
   );

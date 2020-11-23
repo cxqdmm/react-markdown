@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import './index.less';
 import { IRoute } from '../../router/interface';
-import Mavigator from './Navigator';
+import Navigator from './Navigator';
 
 const PREFIX = 'Layout';
 
@@ -21,7 +21,7 @@ const Layout: React.FC<IProps> = React.memo(function Layout(props) {
       </div>
       <div className={`${PREFIX}-body`}>
         <div className={`${PREFIX}-bodyLeft`}>
-          <Mavigator childRoutes={childRoutes} />
+          <Navigator childRoutes={childRoutes} />
         </div>
         <div className={`${PREFIX}-bodyRight`}>{children}</div>
       </div>
