@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import React, { useCallback, useState } from 'react';
 export const Scene = styled.div`
   background-color: #f4f9fe;
-  padding: 16px 20px 0 20px;
-  margin: 10px 0;
+  margin-top: 20px;
+  padding: 16px 20px;
 `;
 
 export const Panel = styled.div`
@@ -43,11 +43,19 @@ const Conclusion: React.FC = React.memo(function Conclusion(props) {
     setVisible((prev) => !prev);
   }, []);
   return (
-    <div style={{ position: 'relative', borderTop: '2px solid #e6ecf1', padding: '10px' }}>
+    <div
+      style={{
+        position: 'relative',
+        borderTop: '2px solid #e6ecf1',
+        backgroundColor: '#f4f9fe',
+        padding: '10px',
+      }}
+    >
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
+
           height: '20px',
           textAlign: 'right',
           fontSize: '12px',

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Conclusion, { H1, H2, Panel, Scene } from '../../../components/Common';
 
-const countContext = React.createContext<{ count: string }>({ count: '' });
+const countContext = React.createContext<{ count?: string }>({ count: '' });
 
 const First: React.FC = React.memo(function First(props) {
   const [count, setCount] = useState<string>('1');
@@ -15,29 +15,30 @@ const First: React.FC = React.memo(function First(props) {
     setCount(e.target.value);
   };
   return (
-    <Scene>
-      <countContext.Provider value={{ count }}>
-        <H1>场景1: 验证在什么情况接收人会响应更新</H1>
-        <div>
-          <span>name：</span>
-          <input value={name} onChange={handleChange} />
-        </div>
-        <Panel>
-          <H2>context提供的数据</H2>
-          <span>count：</span>
-          <input value={count} onChange={handleChangeCount} />
-        </Panel>
-
-        <Receiver />
-      </countContext.Provider>
+    <>
+      <Scene>
+        <countContext.Provider value={{ count }}>
+          <H1>场景1: 验证在什么情况接收人会响应更新</H1>
+          <div>
+            <span>name：</span>
+            <input value={name} onChange={handleChange} />
+          </div>
+          <Panel>
+            <H2>context提供的数据</H2>
+            <span>count：</span>
+            <input value={count} onChange={handleChangeCount} />
+            <Receiver />
+          </Panel>
+        </countContext.Provider>
+      </Scene>
       <Conclusion>context属性的值或者引用变了，接收者才能拿到更新</Conclusion>
-    </Scene>
+    </>
   );
 });
 
 export default First;
 
-const Receiver: React.FC = React.memo(function Reciver(props) {
+const Receiver: React.FC = React.memo(function Receiver(props) {
   const { count } = useContext(countContext);
   const [history, setHistory] = useState<string[]>([]);
   useEffect(() => {
