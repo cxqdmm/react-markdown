@@ -7,7 +7,7 @@ export const Scene = styled.div`
 `;
 
 export const Panel = styled.div`
-  border: 1px solid #e6ecf1;
+  border: 2px solid #2196f3;
   padding: 16px 20px;
   margin: 10px 0;
 `;

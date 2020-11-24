@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Conclusion, { H1, H2, Panel, Scene } from '../../../components/Common';
 
 const countContext = React.createContext<{ count: number }>({ count: 0 });
@@ -9,17 +9,19 @@ const Second: React.FC = React.memo(function Second(props) {
       <Scene>
         <H1>场景2: 同一个context提供多个嵌套的provider，接收者接收到的是哪个provider的数据？</H1>
         <Panel>
-          <H2>context: {`${'{count: 0}'}`}</H2>
+          <H2>context: </H2>
+          count: 0
           <countContext.Provider value={{ count: 1 }}>
             <Panel>
-              <H2>provider1: {`${'{count: 1}'}`}</H2>
+              <H2>provider1:</H2>
+              count: 1
               <countContext.Provider value={{ count: 2 }}>
                 <Panel>
-                  <H2>provider2: {`${'{count: 2}'}`}</H2>
+                  <H2>provider2:</H2>
+                  count: 2
                   <Receiver />
                 </Panel>
               </countContext.Provider>
-
               <Receiver />
             </Panel>
           </countContext.Provider>

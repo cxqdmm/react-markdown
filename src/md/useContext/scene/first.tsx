@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Conclusion, { H1, H2, Panel, Scene } from '../../../components/Common';
 
 const countContext = React.createContext<{ count?: string }>({ count: '' });
+countContext.displayName = 'Count';
 
 const First: React.FC = React.memo(function First(props) {
   const [count, setCount] = useState<string>('1');
@@ -24,7 +25,7 @@ const First: React.FC = React.memo(function First(props) {
             <input value={name} onChange={handleChange} />
           </div>
           <Panel>
-            <H2>context提供的数据</H2>
+            <H2>context</H2>
             <span>count：</span>
             <input value={count} onChange={handleChangeCount} />
             <Receiver />
@@ -38,22 +39,17 @@ const First: React.FC = React.memo(function First(props) {
 
 export default First;
 
-const Receiver: React.FC = React.memo(function Receiver(props) {
+const Receiver: React.FC = React.memo(function Receiver() {
   const { count } = useContext(countContext);
-  const [history, setHistory] = useState<string[]>([]);
+  const renderCount = useRef<number>(1);
   useEffect(() => {
-    setHistory((prev) => {
-      prev.push(`receiver rendered count: ${count}`);
-      return [...prev];
-    });
-  }, [count]);
+    renderCount.current += 1;
+  });
   return (
     <Panel>
       <H2>我是接收人</H2>
       收到的count：{count}
-      {history.map((item) => (
-        <div>{item}</div>
-      ))}
+      <div>收到通知的次数：{renderCount.current}</div>
     </Panel>
   );
 });

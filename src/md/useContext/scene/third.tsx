@@ -48,7 +48,7 @@ export default Third;
 
 const FishReceiver: React.FC = React.memo(function Receiver(props) {
   const { fish } = useContext(countContext);
-  const renderCount = useRef<number>(0);
+  const renderCount = useRef<number>(1);
   useEffect(() => {
     renderCount.current += 1;
   });
@@ -64,7 +64,7 @@ const FishReceiver: React.FC = React.memo(function Receiver(props) {
 
 const FruitReceiver: React.FC = React.memo(function Receiver(props) {
   const { fruit } = useContext(countContext);
-  const renderCount = useRef<number>(0);
+  const renderCount = useRef<number>(1);
   useEffect(() => {
     renderCount.current += 1;
   });
