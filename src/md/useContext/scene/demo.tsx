@@ -25,7 +25,6 @@ const Demo: React.FC = function Demo(props) {
 
 const Receiver: React.FC = function Receiver() {
   const { count } = useContext(countContext);
-  console.log('renderer');
   return <div>{count}</div>;
 };
 

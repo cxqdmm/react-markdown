@@ -16,7 +16,7 @@ const MdView: React.FC<IProps> = React.memo(function MdView(props) {
   const { className, md, view } = props;
   return (
     <div className={cls(`${PREFIX}`, className)}>
-      {isDevelopment && view && <Folder className={`${PREFIX}-body`}>{view}</Folder>}
+      <Folder className={`${PREFIX}-body`}>{view}</Folder>
       <Folder className={`${PREFIX}-md`}>
         <div dangerouslySetInnerHTML={{ __html: md }}></div>
       </Folder>
