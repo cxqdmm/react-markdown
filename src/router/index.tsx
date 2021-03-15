@@ -22,24 +22,24 @@ const routes: IRoute[] = [
   {
     path: WEB_ROOT,
     layout: Layout,
-    layoutProps: { title: 'react 解析' },
+    layoutProps: { title: '' },
     ignoreCache: true,
     children: [
-      {
-        path: homePath,
-        name: 'home',
-        component: () => <MdView md={home} />,
-      },
-      {
-        path: getPath('/useEffect'),
-        name: 'useEffect',
-        component: () => <MdView md={useEffect} view={<UseEffectView />} />,
-      },
-      {
-        path: getPath('/useContext'),
-        name: 'useContext',
-        component: () => <MdView md={useContext} view={<UseContextView />} />,
-      },
+      // {
+      //   path: homePath,
+      //   name: 'home',
+      //   component: () => <MdView md={home} />,
+      // },
+      // {
+      //   path: getPath('/useEffect'),
+      //   name: 'useEffect',
+      //   component: () => <MdView md={useEffect} view={<UseEffectView />} />,
+      // },
+      // {
+      //   path: getPath('/useContext'),
+      //   name: 'useContext',
+      //   component: () => <MdView md={useContext} view={<UseContextView />} />,
+      // },
       {
         path: getPath('/meet'),
         name: 'useContext',

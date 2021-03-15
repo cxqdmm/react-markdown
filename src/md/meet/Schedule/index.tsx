@@ -17,7 +17,8 @@ const SchedulePanel: React.FC<IProps> = React.memo(function TimePeriod(props) {
   return (
     <div className={cls(`${PREFIX}`, className)}>
       <Scale className={`${PREFIX}-scale`} max={24} min={0} step={1} />
-      <Slide value={[0, 8]} steps={1440} />
+      <Slide className={`${PREFIX}-slide`} value={[0, 480]} steps={1440} />
+      <Slide className={`${PREFIX}-slide`} value={[0, 480]} steps={1440} />
     </div>
   );
 });

@@ -14,16 +14,19 @@ interface IProps {
   onChange?: (value: IRange) => void;
 }
 
-const width = 1440;
-
 function setDocumentCursor(cursor: string) {
   document.body.style.cursor = cursor;
 }
 const Slide: React.FC<IProps> = React.memo(function Slide(props) {
   const { className, steps = 1440, value: slice, onChange } = props;
   const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {}, []);
+  const [width, setWidth] = useState<number>(0);
+  useEffect(() => {
+    if (wrapRef.current) {
+      const { width } = wrapRef.current.getBoundingClientRect();
+      setWidth(width);
+    }
+  }, []);
   const handleRangeChange = useCallback(
     (value) => {
       if (value) {
@@ -36,7 +39,7 @@ const Slide: React.FC<IProps> = React.memo(function Slide(props) {
   return (
     <div className={cls(`${PREFIX}`, className)} ref={wrapRef}>
       {slice && (
-        <Slice value={slice} steps={steps} wrapWidth={width} onChange={handleRangeChange} />
+        <Slice value={slice} steps={steps} parentWidth={width} onChange={handleRangeChange} />
       )}
     </div>
   );
@@ -51,12 +54,12 @@ interface IItems {
   className?: string;
   value: IRange;
   steps: number;
-  wrapWidth: number;
+  parentWidth: number;
   onChange?: (value: IRange | undefined) => void;
 }
 
 const Slice: React.FC<IItems> = React.memo(function Slice(props) {
-  const { className, steps, value, wrapWidth, onChange } = props;
+  const { className, steps, value, parentWidth, onChange } = props;
   const forceUpdate = useForceUpdate();
 
   const cache = useRef<IRange>(value);
@@ -79,19 +82,19 @@ const Slice: React.FC<IItems> = React.memo(function Slice(props) {
     setIsActive((prev) => !prev);
   }, []);
 
-  const handleDrag = useCallback(
+  const handleExtrude = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
       // @ts-ignore
       const type = e.currentTarget.dataset.type;
       // 起点
-      const startX = e.clientX;
+      let startX = e.clientX;
       function moveMove(e: MouseEvent) {
         let currentX = e.clientX,
-          offset = (Math.floor(currentX - startX) / wrapWidth) * steps,
+          offset = Math.floor(((currentX - startX) / parentWidth) * steps),
           nextLeft = cache.current[0],
           nextRight = cache.current[1];
-
+        startX = currentX;
         if (type === 'left') {
           nextLeft += offset;
           nextLeft = Math.min(Math.max(0, nextLeft), nextRight);
@@ -101,7 +104,6 @@ const Slice: React.FC<IItems> = React.memo(function Slice(props) {
         }
         setDocumentCursor('w-resize');
         cache.current = [nextLeft, nextRight];
-
         forceUpdate();
       }
 
@@ -114,28 +116,67 @@ const Slice: React.FC<IItems> = React.memo(function Slice(props) {
       document.addEventListener('mousemove', moveMove);
       document.addEventListener('mouseup', moveUp);
     },
-    [forceUpdate, onChange, steps, wrapWidth],
+    [forceUpdate, onChange, steps, parentWidth],
+  );
+
+  const handleDrag = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      // 起点
+      let startX = e.clientX;
+      function moveMove(e: MouseEvent) {
+        let currentX = e.clientX,
+          offset = Math.floor(((currentX - startX) / parentWidth) * steps),
+          nextLeft = cache.current[0],
+          nextRight = cache.current[1];
+        startX = currentX;
+
+        nextLeft += offset;
+        nextRight += offset;
+        let makeUp = 0;
+        if (nextLeft < 0) {
+          makeUp = Math.abs(nextLeft);
+        }
+        if (nextRight > steps) {
+          makeUp = steps - nextRight;
+        }
+        nextLeft += makeUp;
+        nextRight += makeUp;
+        cache.current = [nextLeft, nextRight];
+        forceUpdate();
+      }
+
+      function moveUp() {
+        onChange?.(cache.current);
+        document.removeEventListener('mousemove', moveMove);
+        document.removeEventListener('mouseup', moveUp);
+        setDocumentCursor('initial');
+      }
+      document.addEventListener('mousemove', moveMove);
+      document.addEventListener('mouseup', moveUp);
+    },
+    [forceUpdate, onChange, parentWidth, steps],
   );
 
   return (
-    <div style={styles} className={`${PREFIX}-sliceBox`}>
-      <div
-        className={cls(`${PREFIX}-slice`, className, { 'is-active': isActive })}
-        onMouseDown={handleClick}
-      >
-        <span
-          className={cls(`${PREFIX}-sliceLeftDrag`, { 'is-visible': isActive })}
-          data-type="left"
-          onMouseDown={handleDrag}
-        ></span>
-        <span
-          className={cls(`${PREFIX}-sliceRightDrag`, { 'is-visible': isActive })}
-          data-type="right"
-          onMouseDown={handleDrag}
-        ></span>
-        <div className={cls(`${PREFIX}-sliceTip`, { 'is-visible': isActive })}>
-          {transformRange2Time(cache.current)}
-        </div>
+    <div
+      style={styles}
+      className={cls(`${PREFIX}-slice`, className, { 'is-active': isActive })}
+      onMouseDown={handleDrag}
+      onClick={handleClick}
+    >
+      <span
+        className={cls(`${PREFIX}-sliceLeftDrag`, { 'is-visible': isActive })}
+        data-type="left"
+        onMouseDown={handleExtrude}
+      ></span>
+      <span
+        className={cls(`${PREFIX}-sliceRightDrag`, { 'is-visible': isActive })}
+        data-type="right"
+        onMouseDown={handleExtrude}
+      ></span>
+      <div className={cls(`${PREFIX}-sliceTip`, { 'is-visible': isActive })}>
+        {transformRange2Time(cache.current)}
       </div>
     </div>
   );

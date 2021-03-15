@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import cls from 'classnames';
 import './index.less';
 
-const PREFIX = 'TimePeriodScale';
+const PREFIX = 'Scale';
 const Scale: React.FC<{ max: number; min: number; step: number; className?: string }> = React.memo(
   function Scale(props) {
     const { max, min, step, className } = props;
@@ -25,13 +25,14 @@ const Scale: React.FC<{ max: number; min: number; step: number; className?: stri
     }, [max, min, step]);
     return (
       <div className={cls(className, `${PREFIX}`)}>
-        {scales.map((scale) => (
+        {scales.map((scale, key) => (
           <div
+            key={key}
             className={`${PREFIX}-pin`}
             style={{
               position: 'absolute',
               left: `${scale.length * 100}%`,
-              top: 0,
+              bottom: 0,
             }}
           >
             <span className={cls(`${PREFIX}-pinText`, { 'is-visible': scale.textVisible })}>
