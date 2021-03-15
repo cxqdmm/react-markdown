@@ -7,7 +7,7 @@ const PREFIX = 'MdView';
 
 interface IProps {
   className?: string;
-  md: string;
+  md?: string;
   view?: React.ReactNode;
 }
 
@@ -17,9 +17,11 @@ const MdView: React.FC<IProps> = React.memo(function MdView(props) {
   return (
     <div className={cls(`${PREFIX}`, className)}>
       <Folder className={`${PREFIX}-body`}>{view}</Folder>
-      <Folder className={`${PREFIX}-md`}>
-        <div dangerouslySetInnerHTML={{ __html: md }}></div>
-      </Folder>
+      {md && (
+        <Folder className={`${PREFIX}-md`}>
+          <div dangerouslySetInnerHTML={{ __html: md }}></div>
+        </Folder>
+      )}
     </div>
   );
 });

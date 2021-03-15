@@ -1,0 +1,21 @@
+@prefix: 'TimePeriodScale';
+
+.@{prefix} {
+  position: relative;
+  &-pin {
+    width: 1px;
+    height: 10px;
+    margin-left: -1px;
+    background-color: rgba(white, 0.4);
+    &Text {
+      position: absolute;
+      top: -20px;
+      display: none;
+      color: rgba(white, 0.7);
+      transform: translateX(-50%);
+      &.is-visible {
+        display: block;
+      }
+    }
+  }
+}

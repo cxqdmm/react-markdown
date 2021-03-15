@@ -1,0 +1,92 @@
+@prefix: 'Slide';
+.@{prefix} {
+  position: relative;
+  height: 100%;
+
+  &-dragSlice {
+    .@{prefix}-sliceTip {
+      display: block;
+    }
+  }
+
+  &-timer {
+    position: absolute;
+    top: 55px;
+    z-index: 100;
+    width: 200px;
+  }
+  &-sliceBox {
+    position: absolute;
+    height: 100%;
+    background-color: blue;
+    cursor: pointer;
+    user-select: none;
+  }
+  &-slice {
+    width: 100%;
+    height: 100%;
+    &.is-active {
+      border-radius: 1px dashed blue;
+    }
+    &LeftDrag {
+      position: absolute;
+      left: 0;
+      display: none;
+      width: 2px;
+      height: 100%;
+      background-color: black;
+      cursor: w-resize;
+      &.is-visible {
+        display: block;
+      }
+    }
+    &RightDrag {
+      position: absolute;
+      right: 0;
+      display: none;
+      width: 2px;
+      height: 100%;
+      background-color: black;
+      cursor: w-resize;
+      &.is-visible {
+        display: block;
+      }
+    }
+
+    &Close {
+      position: absolute;
+      right: 0;
+      bottom: -30px;
+      z-index: 100;
+      display: none;
+      padding: 4px;
+      font-size: 20px;
+      background-color: black;
+      border-radius: 14px;
+      cursor: pointer;
+      &.is-visible {
+        display: block;
+      }
+    }
+
+    &:hover {
+      .@{prefix}-sliceTip {
+        display: block;
+      }
+    }
+    &Tip {
+      position: absolute;
+      top: -54px;
+      left: 50%;
+      display: none;
+      width: 128px;
+      padding: 2px 4px;
+      background: black;
+      border-radius: 2px;
+      transform: translateX(-50%);
+      &.is-visible {
+        display: block;
+      }
+    }
+  }
+}
