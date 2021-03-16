@@ -3,27 +3,26 @@
   height: 100%;
   background-color: green;
   box-sizing: border-box;
-  cursor: pointer;
+  // cursor: pointer;
   user-select: none;
-  &.is-active {
-    border: 1px dashed #ccc;
-  }
+
   &-leftDrag,
   &-rightDrag {
+    z-index: 2;
     position: absolute;
     display: none;
-    width: 4px;
+    width: 2px;
     height: 100%;
-    background-color: transparent;
+    background-color: black;
     cursor: w-resize;
     &.is-visible {
       display: block;
     }
   }
   &-leftDrag {
-    left: -2px;
+    left: 0px;
   }
   &-rightDrag {
-    right: -2px;
+    right: 0px;
   }
 }

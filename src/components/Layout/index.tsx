@@ -16,13 +16,13 @@ const Layout: React.FC<IProps> = React.memo(function Layout(props) {
   const { title, childRoutes, children } = props;
   return (
     <div className={cls(`${PREFIX}`)}>
-      <div className={`${PREFIX}-head`}>
+      {/* <div className={`${PREFIX}-head`}>
         <span className={`${PREFIX}-headTitle`}>{title}</span>
-      </div>
+      </div> */}
       <div className={`${PREFIX}-body`}>
-        <div className={`${PREFIX}-bodyLeft`}>
+        {/* <div className={`${PREFIX}-bodyLeft`}>
           <Navigator childRoutes={childRoutes} />
-        </div>
+        </div> */}
         <div className={`${PREFIX}-bodyRight`}>{children}</div>
       </div>
     </div>

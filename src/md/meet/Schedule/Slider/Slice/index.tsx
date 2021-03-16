@@ -1,6 +1,4 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useForceUpdate } from '../../../useForceUpdate';
-import { transformRange2Time } from '../../util';
 import { IRange } from '../../interface';
 import cls from 'classnames';
 import './index.less';
@@ -25,7 +23,6 @@ interface IItems {
 
 export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
   const { className, steps, value, parentWidth, onChange } = props;
-  const forceUpdate = useForceUpdate();
 
   const cache = useRef<IRange>(value);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -42,8 +39,7 @@ export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
     } as CSSProperties;
   }, [end, start, steps]);
 
-  const handleClick = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
+  const switchActive = useCallback(() => {
     setIsActive((prev) => !prev);
   }, []);
 
@@ -54,6 +50,7 @@ export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
       const type = e.currentTarget.dataset.type;
       // 起点
       let startX = e.clientX;
+
       function moveMove(e: MouseEvent) {
         let currentX = e.clientX,
           offset = Math.floor(((currentX - startX) / parentWidth) * steps),
@@ -70,15 +67,16 @@ export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
         setDocumentCursor('w-resize');
         cache.current = [nextLeft, nextRight];
         onChange?.(cache.current);
-        // forceUpdate();
       }
 
-      function moveUp() {
+      function moveUp(e: MouseEvent) {
+        e.stopPropagation();
         onChange?.(cache.current);
         document.removeEventListener('mousemove', moveMove);
         document.removeEventListener('mouseup', moveUp);
         setDocumentCursor('initial');
       }
+
       document.addEventListener('mousemove', moveMove);
       document.addEventListener('mouseup', moveUp);
     },
@@ -90,6 +88,7 @@ export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
       e.stopPropagation();
       // 起点
       let startX = e.clientX;
+      let hasMoved = false;
       function moveMove(e: MouseEvent) {
         let currentX = e.clientX,
           offset = Math.floor(((currentX - startX) / parentWidth) * steps),
@@ -109,19 +108,25 @@ export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
         nextLeft += makeUp;
         nextRight += makeUp;
         cache.current = [nextLeft, nextRight];
+        hasMoved = true;
+        setDocumentCursor('grabbing');
         onChange?.(cache.current);
       }
 
       function moveUp() {
-        onChange?.(cache.current);
+        setDocumentCursor('initial');
         document.removeEventListener('mousemove', moveMove);
         document.removeEventListener('mouseup', moveUp);
-        setDocumentCursor('initial');
+        if (hasMoved) {
+          onChange?.(cache.current);
+        } else {
+          switchActive();
+        }
       }
       document.addEventListener('mousemove', moveMove);
       document.addEventListener('mouseup', moveUp);
     },
-    [onChange, parentWidth, steps],
+    [onChange, parentWidth, steps, switchActive],
   );
 
   return (
@@ -129,7 +134,6 @@ export const Slice: React.FC<IItems> = React.memo(function Slice(props) {
       style={styles}
       className={cls(`${PREFIX}`, className, { 'is-active': isActive })}
       onMouseDown={handleDrag}
-      onClick={handleClick}
     >
       <span
         className={cls(`${PREFIX}-leftDrag`, { 'is-visible': isActive })}

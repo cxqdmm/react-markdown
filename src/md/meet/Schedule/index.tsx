@@ -1,5 +1,5 @@
 import { IRange } from './interface';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Scale from './Scale';
 import Slide from './Slider';
 import cls from 'classnames';
@@ -16,14 +16,6 @@ interface IProps {
   onChange?: (value: Array<IRange>) => void;
 }
 
-let initList: ISlice[] = [];
-for (let i = 0; i < 10000; i++) {
-  initList.push({
-    overlap: [],
-    value: [0, 480],
-  });
-}
-
 function createDefaultSlice() {
   return {
     overlap: [],
@@ -37,6 +29,7 @@ interface ISlice {
 
 const SchedulePanel: React.FC<IProps> = React.memo(function TimePeriod(props) {
   const { className, onChange } = props;
+  const defaultLength = useRef<number>(10);
   const [list, setList] = useState<ISlice[]>([]);
   const [visibleRange, setVisibleRange] = useState<[number, number]>([0, 0]);
 
@@ -130,15 +123,33 @@ const SchedulePanel: React.FC<IProps> = React.memo(function TimePeriod(props) {
     });
   }, [updateOverlap, visibleRange]);
 
+  const onDefaultChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    defaultLength.current = parseInt(e.target.value);
+  }, []);
+
+  const handleReset = () => {
+    let initList: ISlice[] = [];
+    for (let i = 0; i < defaultLength.current; i++) {
+      initList.push({
+        overlap: [],
+        value: [0, 480],
+      });
+    }
+    setList(initList);
+  };
+
   return (
     <div className={cls(`${PREFIX}`, className)}>
-      <div>
-        <div className={`${PREFIX}-header`}>
-          <Scale className={`${PREFIX}-scale`} max={24} min={0} step={1} />
-          <div className={`${PREFIX}-footer`}>
-            <div className={`${PREFIX}-add`} onClick={handleAdd}>
-              +
-            </div>
+      <div className={`${PREFIX}-reset`}>
+        <span>初始化：</span>
+        <input type="text" placeholder="列表长度" onChange={onDefaultChange} />
+        <div onClick={handleReset}>重置</div>
+      </div>
+      <div className={`${PREFIX}-header`}>
+        <Scale className={`${PREFIX}-scale`} max={24} min={0} step={1} />
+        <div className={`${PREFIX}-footer`}>
+          <div className={`${PREFIX}-add`} onClick={handleAdd}>
+            +
           </div>
         </div>
       </div>
