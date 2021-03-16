@@ -15,12 +15,13 @@ interface IProps {
   value?: IRange;
   overlap?: IRange[];
   steps?: number;
+  index: number;
   onChange?: (value: IRange) => void;
   onDelete?: () => void;
 }
 
 const Slider: React.FC<IProps> = React.memo(function Slider(props) {
-  const { className, steps = 1440, value, onChange, overlap, onDelete } = props;
+  const { className, steps = 1440, value, onChange, index, overlap, onDelete } = props;
   const wrapRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState<number>(0);
   useEffect(() => {
@@ -49,6 +50,7 @@ const Slider: React.FC<IProps> = React.memo(function Slider(props) {
         ))}
       </div>
       <div className={`${PREFIX}-footer`}>
+        <span>{index}</span>
         <span className={`${PREFIX}-time`}>{transformRange2Time(value)}</span>
         <span className={`${PREFIX}-delete`} onClick={onDelete}>
           x

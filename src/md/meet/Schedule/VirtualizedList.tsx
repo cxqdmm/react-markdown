@@ -1,4 +1,4 @@
-import { ListOnItemsRenderedProps, VariableSizeList as List } from 'react-window';
+import { ListOnItemsRenderedProps, areEqual, VariableSizeList as List } from 'react-window';
 import React, { useCallback } from 'react';
 import cls from 'classnames';
 import memoize from 'memoize-one';
@@ -37,6 +37,7 @@ const Row = React.memo(
       </div>
     );
   },
+  areEqual,
 );
 
 const VirtualizedList: React.FC<IProps> = React.memo(function VirtualizedList(props) {
