@@ -42,7 +42,7 @@ const routes: IRoute[] = [
       // },
       {
         path: getPath('/meet'),
-        name: 'useContext',
+        name: '会议预定',
         component: () => <MdView view={<Meet />} />,
       },
     ],

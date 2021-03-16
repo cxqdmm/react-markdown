@@ -14,15 +14,32 @@ export function transformNum2Time(n: number) {
   return `${formatTime(hour)}:${formatTime(minutes)}:00`;
 }
 
-// export function timeStrToNum(n: string) {
-//   const [s1, s2, s3] = n.split(':');
-//   const n1 = parseInt(s1);
-//   const n2 = parseInt(s2) / 60;
-//   const n3 = parseInt(s3) / 600;
-
-//   return n1 + n2 + n3s
-// }
-
-export function transformRange2Time(range: IRange) {
+export function transformRange2Time(range?: IRange) {
+  if (!range) return '';
   return `${transformNum2Time(range[0])}~${transformNum2Time(range[1])}`;
+}
+
+// 合并区间
+export function mergeRanges(ranges: IRange[]): IRange[] {
+  if (!ranges || !ranges.length) return [];
+  ranges.sort((a, b) => a[0] - b[0]);
+  let merged: IRange[] = [[...ranges[0]]];
+  for (let i = 1; i < ranges.length; i++) {
+    if (merged[merged.length - 1][1] >= ranges[i][0]) {
+      merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], ranges[i][1]);
+    } else {
+      merged.push([...ranges[i]]);
+    }
+  }
+  return merged;
+}
+
+// 计算区间交集
+export function intersect(r1: IRange, r2: IRange): IRange | undefined {
+  const len1 = r1[1] - r1[0] + (r2[1] - r2[0]);
+  const len2 = Math.max(r1[1], r2[1]) - Math.min(r1[0], r2[0]);
+  if (len2 < len1) {
+    return [Math.max(r1[0], r2[0]), Math.min(r1[1], r2[1])];
+  }
+  return undefined;
 }

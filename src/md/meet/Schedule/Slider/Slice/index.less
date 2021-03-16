@@ -1,0 +1,29 @@
+.Slice {
+  position: absolute;
+  height: 100%;
+  background-color: green;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  &.is-active {
+    border: 1px dashed #ccc;
+  }
+  &-leftDrag,
+  &-rightDrag {
+    position: absolute;
+    display: none;
+    width: 4px;
+    height: 100%;
+    background-color: transparent;
+    cursor: w-resize;
+    &.is-visible {
+      display: block;
+    }
+  }
+  &-leftDrag {
+    left: -2px;
+  }
+  &-rightDrag {
+    right: -2px;
+  }
+}

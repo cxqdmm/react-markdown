@@ -1,11 +1,35 @@
 .SchedulePanel {
   padding: 80px;
   &-scale {
-    width: 100%;
+    flex: 1;
     height: 40px;
   }
 
-  &-slide {
-    margin-top: 10px;
+  &-header {
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  &-footer {
+    display: flex;
+    flex: 0 0 250px;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &-add {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: rgba(#000, 0.1);
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    user-select: none;
+    margin-left: auto;
+    margin-right: 20px;
   }
 }
