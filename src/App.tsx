@@ -7,3 +7,4 @@ const App: React.FC = React.memo(function App(props) {
 });
 
 export default App;
+const a = 1;
